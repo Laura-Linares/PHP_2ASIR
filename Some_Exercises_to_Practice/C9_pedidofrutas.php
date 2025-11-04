@@ -23,33 +23,35 @@
             return true;
         }
 
-        $listaFrutasPrecio=['Peras'=>2.15,'Limones'=>2.80,'Cerezas'=>3.35,'Naranjas'=>5.31,'Uvas'=>3.42,'Manzanas'=>4.43,'Mango'=>3.90];
-
+        $listaFrutasPrecio=["Peras" => 2.15, "Limones" => 2.80, "Cerezas" => 3.35, "Naranjas" => 5.31, "Uvas" => 3.42, "Manzanas" => 4.43, "Mango" => 3.90];
+        
         shuffle_asociativo($listaFrutasPrecio);
 
-        $maxKilos=10;
-        $maxDinero=20;
-        $totalKilos=0;
-        $totalDinero=0;
-
-        echo "<h2>Hola, cargo máximo" . $maxKilos . " Kilos y tengo " . $maxDinero . " € </h2>";
-
-        echo "--------Cesta de la compra de LauraLinares--------<br>";
-
-        foreach ($listaFrutasPrecio as $fruta=>$precio) {
-            $n_kilos=rand(1,3);
-            $dinero=$precio*$n_kilos;
-            // comprobacion para que mientras quepan los kilos y el precio, continue sumando a la cesta
-            if (($totalKilos+$n_kilos <= $maxKilos) and ($totalDinero+$dinero <= $maxDinero)) {
-                //acumula los kilos y el dinero de esta fruta a la variable total
-                $totalKilos+=$n_kilos;
-                $totalDinero+=$dinero;
-                // muestra por pantalla los resultados de lo que se ha añadido a la cesta
-                echo $fruta . " con " . $n_kilos . " Kg y un precio total de " . $dinero . " € <br>";    
-            }          
+        echo "Los precios están a: <br>";
+        foreach ($listaFrutasPrecio as $fruta => $precio) {
+            echo "$fruta => $precio ";
         }
-        // conclusión final de la lista
-        echo "<h2>El total es de: " . $totalKilos . " Kg y un coste de: " . $totalDinero . " €</h2>"; 
-    ?>  
+        echo "<br>";
+
+        $precioMAX=20;
+        $pesoMAX=10;
+        $totalprecio=0;
+        $totalpeso=0;
+
+        echo "Hola, cargo máximo $pesoMAX Kilos y tengo $precioMAX € <br>";
+        echo "<hr>";
+        foreach ($listaFrutasPrecio as $fruta => $precio) {
+            $kilos=rand(1,3);
+            $dinero=($precio*$kilos);
+            if ((($totalpeso+$kilos) > $pesoMAX) or (($totalprecio+$dinero) > $precioMAX)) {
+                break;
+            }
+            $totalpeso+=$kilos;
+            $totalprecio+=$dinero;
+            echo "$fruta: con $kilos k --> precio original: $precio € --> precio total: $dinero € <br>";
+        }
+        echo "<hr>";
+        echo "El total de kilos es de: $totalpeso y la compra cuesta: $totalprecio €";
+    ?>
 </body>
 </html>
